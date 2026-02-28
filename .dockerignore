@@ -1,0 +1,10 @@
+node_modules
+.git
+.DS_Store
+datasets/
+data/
+upload/
+Cook_it_Project.ipynb
+venv/
+__pycache__/
+*.pyc

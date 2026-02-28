@@ -1,0 +1,25 @@
+# 1. 파이썬 3.9 슬림 버전 사용 (가볍고 빠름)
+FROM python:3.9-slim
+
+# 2. 컨테이너 내부의 작업 폴더를 /app으로 설정
+WORKDIR /app
+
+# 3. ⭐️ 아주 중요! YOLOv8(OpenCV) 실행에 필수적인 리눅스 시스템 도구 설치
+# (최신 버전에 맞게 패키지 이름을 libgl1로 수정했습니다!)
+RUN apt-get update && apt-get install -y \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# 4. 파이썬 라이브러리 목록 복사 및 설치
+COPY fastapi_server/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 5. FastAPI 폴더 안의 모든 코드와 AI 모델 파일(.pt) 복사
+COPY fastapi_server ./
+
+# 6. 8000번 포트 열기
+EXPOSE 8000
+
+# 7. 서버 실행 (fastapi_server.py 파일 안의 app 객체를 실행)
+CMD ["uvicorn", "fastapi_server:app", "--host", "0.0.0.0", "--port", "8000"]
