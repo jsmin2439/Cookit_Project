@@ -143,16 +143,6 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-cook_it_server/serviceAccountKey.json
-cook_it_server/vision-key.json
-
-# Sensitive Files
-**/serviceAccountKey*.json
-**/vision-key*.json
-**/*.env*
-**/*-key*.json
-**/*secret*.json
-
 .venv/
 
 .DS_Store
